@@ -13,21 +13,21 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class BookRepository {
 
-    private static final String TABLE = "dasniko-funqy-books";
+    public static final String DDB_TABLE_NAME = "dasniko-funqy-books";
 
     @Inject
     DynamoDbClient dynamoDb;
 
     public List<Book> getBooks() {
         return dynamoDb.scanPaginator(builder ->
-                builder.tableName(TABLE).projectionExpression("id,title,author"))
+                builder.tableName(DDB_TABLE_NAME).projectionExpression("id,title,author"))
                 .items().stream()
                 .map(Book::fromItem)
                 .collect(Collectors.toList());
     }
 
     public void addBook(Book book) {
-        dynamoDb.putItem(builder -> builder.tableName(TABLE).item(book.toItem()));
+        dynamoDb.putItem(builder -> builder.tableName(DDB_TABLE_NAME).item(book.toItem()));
     }
 
 }

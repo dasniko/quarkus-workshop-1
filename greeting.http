@@ -1,0 +1,42 @@
+POST http://localhost:8080/plain
+Content-Type: application/json
+
+"John"
+
+
+###
+
+GET http://localhost:8080/hello?name=John
+Accept: application/json
+
+
+###
+
+POST http://localhost:8080/hello
+Content-Type: application/json
+
+{
+  "name": "John"
+}
+
+
+###
+
+GET http://localhost:8080/greet?first=John&last=Doe
+Accept: application/json
+
+
+###
+
+GET http://localhost:8080/family?mom.first=Jane&mom.last=Smith&dad.first=John&dad.last=Doe&kids=Peter&kids=Mary
+Accept: application/json
+
+
+###
+
+GET https://o5ct6agazi.execute-api.eu-central-1.amazonaws.com/hello?name=John
+Accept: application/json
+Authorization: Basic admin secret
+
+
+###

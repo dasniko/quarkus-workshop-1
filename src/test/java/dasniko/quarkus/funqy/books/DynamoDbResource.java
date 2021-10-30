@@ -1,5 +1,6 @@
 package dasniko.quarkus.funqy.books;
 
+import io.quarkus.logging.Log;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -22,8 +23,7 @@ public class DynamoDbResource implements QuarkusTestResourceLifecycleManager {
 
     private static final int PORT = 8000;
 
-    @SuppressWarnings("rawtypes")
-    GenericContainer dynamodb;
+    GenericContainer<?> dynamodb;
 
     @Override
     public Map<String, String> start() {
@@ -34,7 +34,7 @@ public class DynamoDbResource implements QuarkusTestResourceLifecycleManager {
         dynamodb.start();
 
         String endpoint = String.format("http://%s:%s", dynamodb.getContainerIpAddress(), dynamodb.getMappedPort(PORT));
-        System.out.println("DDB Endpoint: " + endpoint);
+        Log.info("DDB Endpoint: " + endpoint);
         initTable(endpoint);
 
         return Map.of("quarkus.dynamodb.endpoint-override", endpoint);
@@ -56,7 +56,7 @@ public class DynamoDbResource implements QuarkusTestResourceLifecycleManager {
                     .build();
 
             ddb.createTable(builder -> builder
-                    .tableName("dasniko-funqy-books")
+                    .tableName(BookRepository.DDB_TABLE_NAME)
                     .attributeDefinitions(AttributeDefinition.builder().attributeName("id").attributeType(ScalarAttributeType.S).build())
                     .keySchema(KeySchemaElement.builder().attributeName("id").keyType(KeyType.HASH).build())
                     .provisionedThroughput(ptb -> ptb.readCapacityUnits(100L).writeCapacityUnits(100L))

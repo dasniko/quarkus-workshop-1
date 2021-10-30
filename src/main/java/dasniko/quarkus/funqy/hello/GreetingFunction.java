@@ -12,6 +12,11 @@ import java.util.Map;
 public class GreetingFunction {
 
     @Funq
+    public String plain(String name) {
+        return "Hello " + name;
+    }
+
+    @Funq
     public Map<String, String> hello(Map<String, String> params) {
         return Collections.singletonMap("hello", params.get("name"));
     }

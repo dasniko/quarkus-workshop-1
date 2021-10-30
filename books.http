@@ -1,0 +1,35 @@
+GET http://localhost:8080/getBooks
+Accept: application/json
+
+
+###
+
+POST http://localhost:8080/createBook
+Content-Type: application/json
+
+{
+  "title": "Serverless Computing in AWS",
+  "author": "Niko Köbler"
+}
+
+
+###
+
+GET https://o5ct6agazi.execute-api.eu-central-1.amazonaws.com/getBooks
+Accept: application/json
+Authorization: Basic admin secret
+
+
+###
+
+POST https://o5ct6agazi.execute-api.eu-central-1.amazonaws.com/createBook
+Authorization: Basic admin secret
+Content-Type: application/json
+
+{
+  "title": "Serverless Computing in AWS",
+  "author": "Niko Köbler"
+}
+
+
+###

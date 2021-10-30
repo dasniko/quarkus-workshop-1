@@ -29,7 +29,7 @@
         Handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
         Runtime: java11
         CodeUri: ../target/function.zip
-        MemorySize: 1024
+        MemorySize: 2048
         Policies:
           - AWSLambdaBasicExecutionRole
           - AmazonDynamoDBFullAccess
